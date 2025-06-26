@@ -24,12 +24,59 @@ Query Wolfram Alpha api.
 def query_wolfram_alpha(query: str) -> str
 ```
 
+## Usage
+
+To use this MCP server with Claude Desktop, add the following configuration to your Claude Desktop config file:
+
+### Windows Configuration
+```json
+{
+  "mcpServers": {
+    "wolfram-alpha": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\path\\to\\MCP-wolfram-alpha",
+        "run",
+        "MCP-wolfram-alpha"
+      ],
+      "env": {
+        "WOLFRAM_API_KEY": "your-api-key"
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
+### Linux/macOS Configuration
+```json
+{
+  "mcpServers": {
+    "wolfram-alpha": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/user/Documents/MCP-wolfram-alpha",
+        "run",
+        "MCP-wolfram-alpha"
+      ],
+      "env": {
+        "WOLFRAM_API_KEY": "your-api-key"
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
 ## Configuration
 
-You **must** set the `WOLFRAM_API_KEY` environment variable. Get an api ket from [Wolfram Alpha](https://products.wolframalpha.com/api).
+You **must** set the `WOLFRAM_API_KEY` environment variable. Get an API key from [Wolfram Alpha](https://products.wolframalpha.com/api).
 
 This was tested with the full results API, but it might not be required.
 
+### Alternative Configuration (Legacy)
 ```json
 {
     "mcpServers": {

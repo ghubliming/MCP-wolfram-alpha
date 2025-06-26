@@ -1,0 +1,77 @@
+2025-06-26 16:02:38,723 - SUCCESS: Patched wolframalpha Content-Type handling
+2025-06-26 16:02:38,947 - SUCCESS: Wolfram client imported successfully
+2025-06-26 16:02:38,947 - SUCCESS: API key found (first 8 chars: T6Y3KQ-4...)
+2025-06-26 16:02:38,956 - Math Test 1: ASK='What is 2+2?' QUERY='2+2' EXPECT='4'
+2025-06-26 16:02:42,162 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=2%2B2 "HTTP/1.1 200 OK"
+2025-06-26 16:02:42,165 -   RESULT: 4
+2025-06-26 16:02:42,165 -   POD(Input): 2 + 2
+2025-06-26 16:02:42,165 -   POD(Result): 4
+2025-06-26 16:02:42,165 -   POD(Number name): four
+2025-06-26 16:02:42,166 -   POD(Manipulatives illustration): | + | | = | 
+2 | | 2 | | 4
+2025-06-26 16:02:42,166 - SUCCESS: Found expected '4' in answers!
+2025-06-26 16:02:42,166 - Math Test 2: ASK='What is 10 times 5?' QUERY='10*5' EXPECT='50'
+2025-06-26 16:02:44,812 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=10%2A5 "HTTP/1.1 200 OK"
+2025-06-26 16:02:44,815 -   RESULT: 50
+2025-06-26 16:02:44,815 -   POD(Input): 10×5
+2025-06-26 16:02:44,815 -   POD(Result): 50
+2025-06-26 16:02:44,815 -   POD(Number name): fifty
+2025-06-26 16:02:44,815 - SUCCESS: Found expected '50' in answers!
+2025-06-26 16:02:44,815 - Math Test 3: ASK='What is the square root of 16?' QUERY='sqrt(16)' EXPECT='4'
+2025-06-26 16:02:47,842 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=sqrt%2816%29 "HTTP/1.1 200 OK"
+2025-06-26 16:02:47,845 -   RESULT: 4
+2025-06-26 16:02:47,845 -   POD(Input): sqrt(16)
+2025-06-26 16:02:47,845 -   POD(Result): 4
+2025-06-26 16:02:47,845 -   POD(Number name): four
+2025-06-26 16:02:47,845 -   POD(Visual representation): * * * *
+2025-06-26 16:02:47,845 - SUCCESS: Found expected '4' in answers!
+2025-06-26 16:02:47,845 - Math Test 4: ASK='What is 2 to the power of 3?' QUERY='2^3' EXPECT='8'
+2025-06-26 16:02:50,895 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=2%5E3 "HTTP/1.1 200 OK"
+2025-06-26 16:02:50,897 -   RESULT: 8
+2025-06-26 16:02:50,897 -   POD(Input): 2^3
+2025-06-26 16:02:50,897 -   POD(Result): 8
+2025-06-26 16:02:50,897 -   POD(Number name): eight
+2025-06-26 16:02:50,897 -   POD(Visual representation): * * * * * * * *
+2025-06-26 16:02:50,897 - SUCCESS: Found expected '8' in answers!
+2025-06-26 16:02:50,897 - Math Tests Result: 4/4 passed
+2025-06-26 16:02:50,897 - Knowledge Test 1: ASK='What is the population of Tokyo?' QUERY='population of Tokyo' EXPECT_ANY=['million', 'people', 'population', 'Tokyo']
+2025-06-26 16:02:53,691 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=population+of+Tokyo "HTTP/1.1 200 OK"
+2025-06-26 16:02:53,715 -   RESULT: 13.99 million people (country rank: 1st) (2022 estimate)
+2025-06-26 16:02:53,715 -   POD(Input interpretation): Tokyo, Japan | city population
+2025-06-26 16:02:53,715 -   POD(Result): 13.99 million people (country rank: 1st) (2022 estimate)
+2025-06-26 16:02:53,715 -   POD(Metropolitan area population): 37.2 million people (Tokyo metro area)
+(2007 estimate)
+2025-06-26 16:02:53,715 -   POD(Nearby cities): Setagaya, Tokyo | 12 km (kilometers) west-southwest | 841165 people
+Kawaguchi, Saitama | 16 km (kilometers) north-northwest | 479986 people
+Kawasaki, Kanagawa | 17 km (kilometers) south-southwest | 1.359 million people
+Saitama | 25 km (kilometers) north-northwest | 1.222 million people
+Yokohama, Kanagawa | 26 km (kilometers) south-southwest | 3.606 million people
+Chiba | 32 km (kilometers) east-southeast | 925951 people
+(straight-line distances between city centers)
+2025-06-26 16:02:53,715 - SUCCESS: Found one of ['million', 'people', 'population', 'Tokyo'] in answers!
+2025-06-26 16:02:53,715 - Knowledge Test 2: ASK='What is the speed of light?' QUERY='speed of light' EXPECT_ANY=['meter', 'second', '299', 'light']
+2025-06-26 16:02:56,566 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=speed+of+light "HTTP/1.1 200 OK"
+2025-06-26 16:02:56,568 -   RESULT: 2.998×10^8 m/s (meters per second)
+2025-06-26 16:02:56,568 -   POD(Input interpretation): c (speed of light)
+2025-06-26 16:02:56,568 -   POD(Value): 2.998×10^8 m/s (meters per second)
+2025-06-26 16:02:56,569 -   POD(Value): 299792 km/s (kilometers per second)
+2025-06-26 16:02:56,569 -   POD(Value): 186282 mi/s (miles per second)
+2025-06-26 16:02:56,569 - SUCCESS: Found one of ['meter', 'second', '299', 'light'] in answers!
+2025-06-26 16:02:56,569 - Knowledge Test 3: ASK='What is the capital of France?' QUERY='capital of France' EXPECT_ANY=['Paris', 'France', 'capital']
+2025-06-26 16:03:01,963 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=capital+of+France "HTTP/1.1 200 OK"
+2025-06-26 16:03:02,114 -   RESULT: Paris, Île-de-France, France
+2025-06-26 16:03:02,114 -   POD(Input interpretation): France | capital city
+2025-06-26 16:03:02,114 -   POD(Result): Paris, Île-de-France, France
+2025-06-26 16:03:02,114 -   POD(Populations): city population | 2.146 million people (country rank: 1st) (2020 estimate)
+metro area population | 11.82 million people (Paris metro area) (2007 estimate)
+2025-06-26 16:03:02,114 -   POD(Location): Île-de-France, France
+2025-06-26 16:03:02,114 - SUCCESS: Found one of ['Paris', 'France', 'capital'] in answers!
+2025-06-26 16:03:02,114 - Knowledge Test 4: ASK='What is the atomic number of carbon?' QUERY='atomic number of carbon' EXPECT_ANY=['6', 'carbon', 'atomic']
+2025-06-26 16:03:04,512 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=atomic+number+of+carbon "HTTP/1.1 200 OK"
+2025-06-26 16:03:04,514 -   RESULT: 6
+2025-06-26 16:03:04,515 -   POD(Input interpretation): carbon | atomic number
+2025-06-26 16:03:04,515 -   POD(Result): 6
+2025-06-26 16:03:04,515 - SUCCESS: Found one of ['6', 'carbon', 'atomic'] in answers!
+2025-06-26 16:03:04,515 - Knowledge Tests Result: 4/4 passed
+2025-06-26 16:03:04,515 - FINAL RESULTS: 8/8 passed (100.0%)
+2025-06-26 16:03:04,515 - SUCCESS: Test suite passed (>=70% success rate)
