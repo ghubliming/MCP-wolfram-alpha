@@ -1,0 +1,43 @@
+Instructions for running the MCP Wolfram Alpha server directly with Python:
+
+1.  **Create and activate a virtual environment:**
+    Open a terminal in the project's root directory and run:
+    ```bash
+    # For Linux/macOS
+    python -m venv .venv
+    source .venv/bin/activate
+
+    # For Windows
+    python -m venv .venv
+    .venv\Scripts\activate
+    ```
+
+2.  **Install dependencies:**
+    With your virtual environment activated, run:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Configure your MCP client:**
+    Create a `config.json` file with the following content. This configuration tells your MCP client how to start the server by running the Python module directly. It also sets the `PYTHONPATH` environment variable so that the `mcp_wolfram_alpha` module can be found inside the `src` directory.
+
+    Remember to replace `"your-api-key"` with your actual Wolfram Alpha API key.
+
+    ```json
+    {
+      "mcpServers": {
+        "wolfram-alpha": {
+          "command": "python",
+          "args": [
+            "-m",
+            "mcp_wolfram_alpha.server"
+          ],
+          "env": {
+            "WOLFRAM_API_KEY": "your-api-key",
+            "PYTHONPATH": "src"
+          },
+          "enabled": true
+        }
+      }
+    }
+    ```
