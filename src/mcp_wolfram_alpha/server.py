@@ -161,11 +161,21 @@ async def handle_call_tool(
         
     query = query.strip()
     
+    # Debug: Check if API key is available
+    import os
+    api_key = os.getenv('WOLFRAM_API_KEY')
+    if not api_key:
+        return [types.TextContent(
+            type="text",
+            text="❌ **Configuration Error:** WOLFRAM_API_KEY environment variable is not set.\n\n🔧 **Solution:** Set your Wolfram Alpha API key in the environment variables."
+        )]
+    
     try:
-        # Query Wolfram Alpha
+        # Query Wolfram Alpha using async client  
+        # Note: First, let's test with a simple sync call wrapped in to_thread for debugging
         response = await asyncio.to_thread(client.query, query)
         
-        if not response.pods:
+        if not response or not hasattr(response, 'pods') or not response.pods:
             return [types.TextContent(
                 type="text",
                 text=f"🤔 No results found for '{query}'. Try rephrasing your question or being more specific."
@@ -245,17 +255,24 @@ async def handle_call_tool(
         
     except Exception as e:
         # Provide more detailed error information
-        error_msg = f"Failed to query Wolfram Alpha: {str(e)}"
-        if "Content-Type" in str(e):
-            error_msg += "\n💡 This may indicate an API key issue or service unavailability."
-        elif "timeout" in str(e).lower():
-            error_msg += "\n💡 The query timed out. Try a simpler question."
-        elif "api" in str(e).lower():
-            error_msg += "\n💡 There may be an issue with the Wolfram Alpha API service."
+        error_details = str(e)
+        error_msg = f"Failed to query Wolfram Alpha: {error_details}"
+        
+        # Add specific troubleshooting based on error type
+        if "Content-Type" in error_details:
+            error_msg += "\n💡 **API Issue:** The Wolfram Alpha API returned an unexpected response format. This usually indicates an invalid API key or API service issue."
+        elif "timeout" in error_details.lower():
+            error_msg += "\n💡 **Timeout:** The query took too long. Try a simpler question."
+        elif "api" in error_details.lower() or "http" in error_details.lower():
+            error_msg += "\n💡 **Network Issue:** Cannot connect to Wolfram Alpha API service."
+        elif "assertion" in error_details.lower():
+            error_msg += "\n💡 **API Response Error:** Wolfram Alpha returned an unexpected response format. Check your API key."
+        else:
+            error_msg += f"\n💡 **Technical Details:** {error_details}"
             
         return [types.TextContent(
             type="text", 
-            text=f"❌ **Error:** {error_msg}\n\n🔧 **Troubleshooting:**\n• Check your internet connection\n• Try a simpler query\n• Verify API key is valid\n• Wait a moment and try again"
+            text=f"❌ **Error:** {error_msg}\n\n🔧 **Troubleshooting:**\n• Verify WOLFRAM_API_KEY environment variable is set\n• Check API key is valid at https://products.wolframalpha.com/api\n• Try a simpler query like '2+2'\n• Check internet connection\n• Wait a moment and try again"
         )]
 
 
