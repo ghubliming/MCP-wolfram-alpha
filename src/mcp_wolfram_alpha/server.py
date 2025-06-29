@@ -1,6 +1,5 @@
 import base64
 import asyncio
-import os
 import traceback
 from mcp.server.models import InitializationOptions
 from mcp.server.lowlevel import NotificationOptions, Server
@@ -268,91 +267,7 @@ This indicates a system initialization error.
         logger.info(f"🔍 Processing Wolfram Alpha query: '{query[:50]}...'")
         
         # Query Wolfram Alpha using thread-safe approach
-        # First, let's try to catch the AssertionError and diagnose the response
-        try:
-            response = await asyncio.to_thread(client.query, query)
-        except AssertionError as assertion_error:
-            # The wolframalpha library failed on Content-Type assertion
-            # Let's make a direct HTTP request to see what we're actually getting
-            logger.error(f"AssertionError in wolframalpha library: {assertion_error}")
-            
-            # Make direct HTTP request to diagnose the issue
-            import os
-            api_key = os.getenv('WOLFRAM_API_KEY')
-            direct_url = f"http://api.wolframalpha.com/v2/query?input={query}&appid={api_key}&format=plaintext"
-            
-            async with httpx.AsyncClient(timeout=30.0) as http_client:
-                try:
-                    direct_response = await http_client.get(direct_url)
-                    content_type = direct_response.headers.get('Content-Type', 'unknown')
-                    status_code = direct_response.status_code
-                    response_text = direct_response.text[:500]  # First 500 chars
-                    
-                    error_msg = f"""
-❌ WOLFRAM ALPHA API RESPONSE ERROR
-
-Query: "{query}"
-
-🔍 DIAGNOSIS - The Wolfram Alpha API returned an unexpected response:
-• Expected Content-Type: text/xml;charset=utf-8
-• Actual Content-Type: {content_type}
-• HTTP Status Code: {status_code}
-
-📄 RESPONSE PREVIEW:
-{response_text}
-
-🔧 LIKELY CAUSES & SOLUTIONS:
-
-{'🔑 INVALID API KEY' if status_code == 401 else ''}
-{'• Your WOLFRAM_API_KEY is invalid or expired' if status_code == 401 else ''}
-{'• Get a new API key at https://products.wolframalpha.com/api' if status_code == 401 else ''}
-
-{'📊 QUOTA EXCEEDED' if status_code == 429 or 'limit' in response_text.lower() else ''}
-{'• You have exceeded your API usage quota' if status_code == 429 or 'limit' in response_text.lower() else ''}
-{'• Check your usage at https://products.wolframalpha.com/api' if status_code == 429 or 'limit' in response_text.lower() else ''}
-{'• Wait until quota resets or upgrade your plan' if status_code == 429 or 'limit' in response_text.lower() else ''}
-
-{'🚫 API ERROR' if status_code >= 400 and status_code != 401 and status_code != 429 else ''}
-{'• The API returned an error instead of results' if status_code >= 400 and status_code != 401 and status_code != 429 else ''}
-{'• Check if the query format is supported' if status_code >= 400 and status_code != 401 and status_code != 429 else ''}
-
-{'🌐 SERVICE ISSUE' if status_code >= 500 else ''}
-{'• Wolfram Alpha servers are experiencing issues' if status_code >= 500 else ''}
-{'• Try again in a few minutes' if status_code >= 500 else ''}
-
-💡 IMMEDIATE ACTIONS:
-1. Verify your API key: echo $WOLFRAM_API_KEY
-2. Test at: https://products.wolframalpha.com/api
-3. Try a simple query like "2+2"
-4. Check your API dashboard for quota status
-                    """.strip()
-                    
-                    logger.error(f"Direct API call failed - Status: {status_code}, Content-Type: {content_type}")
-                    return [types.TextContent(type="text", text=error_msg)]
-                    
-                except Exception as direct_error:
-                    error_msg = f"""
-❌ WOLFRAM ALPHA CONNECTION FAILED
-
-Query: "{query}"
-
-The Wolfram Alpha library failed with an AssertionError, and a direct API test also failed.
-
-🔍 ORIGINAL ERROR: Content-Type assertion failed in wolframalpha library
-🔍 DIRECT TEST ERROR: {str(direct_error)[:200]}
-
-🔧 TROUBLESHOOTING STEPS:
-1. Check your internet connection
-2. Verify WOLFRAM_API_KEY is set: echo $WOLFRAM_API_KEY  
-3. Test your API key at: https://products.wolframalpha.com/api
-4. Try again in a few minutes
-5. Check if your firewall is blocking api.wolframalpha.com
-
-💡 This suggests either network connectivity issues or API service problems.
-                    """.strip()
-                    
-                    logger.error(f"Both wolframalpha library and direct HTTP request failed: {direct_error}")
-                    return [types.TextContent(type="text", text=error_msg)]
+        response = await asyncio.to_thread(client.query, query)
         
         # Validate response structure
         if not response:
