@@ -1,0 +1,9 @@
+# Option 1: Install in development mode (recommended)
+cd /home/liu/Documents/MCP-wolfram-alpha
+pip install -e .
+
+# Option 2: Install normally
+pip install .
+
+# Then test it works:
+python -m mcp_wolfram_alpha

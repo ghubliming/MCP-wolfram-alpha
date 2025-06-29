@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "wolfram-alpha": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_wolfram_alpha"
+      ],
+      "env": {
+        "WOLFRAM_API_KEY": "T6Y3KQ-46TWL75XTR"
+      },
+      "cwd": "/home/liu/Documents/MCP-wolfram-alpha"
+    }
+  }
+}

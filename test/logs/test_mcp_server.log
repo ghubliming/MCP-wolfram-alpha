@@ -1,0 +1,14 @@
+2025-06-29 19:30:44,810 - SUCCESS: MCP server imported successfully
+2025-06-29 19:30:44,812 - WARNING: Could not get capabilities: Server.get_capabilities() missing 2 required positional arguments: 'notification_options' and 'experimental_capabilities'
+2025-06-29 19:30:44,812 - SUCCESS: Got 1 prompts
+2025-06-29 19:30:44,812 - SUCCESS: All prompt validations passed
+2025-06-29 19:30:44,832 - SUCCESS: Got 1 tools
+2025-06-29 19:30:44,832 - SUCCESS: All tool validations passed
+2025-06-29 19:30:44,832 - SUCCESS: Prompt validation passed for 'What is 2+2?'
+2025-06-29 19:30:44,832 - SUCCESS: Prompt validation passed for 'What is the capital of France?'
+2025-06-29 19:30:44,832 - SUCCESS: Prompt validation passed for 'Calculate the derivative of x^2'
+2025-06-29 19:30:44,835 - SUCCESS: All mock tool validations passed
+2025-06-29 19:30:44,837 - SUCCESS: All error handling tests passed
+2025-06-29 19:30:48,004 - HTTP Request: GET https://api.wolframalpha.com/v2/query?appid=T6Y3KQ-46TWL75XTR&input=2%2B2 "HTTP/1.1 200 OK"
+2025-06-29 19:30:48,006 - WARNING: Real API test failed: Failed to query Wolfram Alpha: 
+2025-06-29 19:30:48,006 - SUCCESS: All core MCP server tests passed!

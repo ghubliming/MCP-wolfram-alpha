@@ -11,3 +11,4 @@ wheels/
 
 # wong2 mcp cli inspector
 config.json
+src/.env

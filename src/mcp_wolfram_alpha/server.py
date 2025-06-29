@@ -9,7 +9,7 @@ import httpx
 server = Server("MCP-wolfram-alpha")
 
 
-@server.list_prompts()
+# Define handler functions that can be imported and tested
 async def handle_list_prompts() -> list[types.Prompt]:
     """
     List available prompts.
@@ -29,7 +29,6 @@ async def handle_list_prompts() -> list[types.Prompt]:
     ]
 
 
-@server.get_prompt()
 async def handle_get_prompt(
     name: str, arguments: dict[str, str] | None
 ) -> types.GetPromptResult:
@@ -54,7 +53,6 @@ async def handle_get_prompt(
     )
 
 
-@server.list_tools()
 async def handle_list_tools() -> list[types.Tool]:
     """
     List available tools.
@@ -75,7 +73,6 @@ async def handle_list_tools() -> list[types.Tool]:
     ]
 
 
-@server.call_tool()
 async def handle_call_tool(
     name: str, arguments: dict | None
 ) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
@@ -95,7 +92,11 @@ async def handle_call_tool(
         try:
             response = await client.aquery(query)
         except Exception as e:
-            raise Exception("Failed to query Wolfram Alpha") from e
+            # Provide more detailed error information
+            error_msg = f"Failed to query Wolfram Alpha: {str(e)}"
+            if "Content-Type" in str(e):
+                error_msg += " (This may indicate an invalid API key or API endpoint issue)"
+            raise Exception(error_msg) from e
         
         try:
             async with httpx.AsyncClient() as http_client:
@@ -127,6 +128,7 @@ async def handle_call_tool(
 
 
 async def main():
+    """Main entry point for the MCP server."""
     # Run the server using stdin/stdout streams
     async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
         await server.run(
