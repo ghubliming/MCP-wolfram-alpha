@@ -1,5 +1,6 @@
 import base64
 import asyncio
+import traceback
 from mcp.server.models import InitializationOptions
 from mcp.server.lowlevel import NotificationOptions, Server
 import mcp.types as types
@@ -479,6 +480,7 @@ This indicates:
         # Comprehensive error analysis with specific guidance
         error_details = str(e)
         error_type = type(e).__name__
+        tb_str = traceback.format_exc()
         
         # Categorize common error types
         if "Content-Type" in error_details or "xml" in error_details.lower():
@@ -518,6 +520,9 @@ Category: {category}
 🔧 RECOMMENDED SOLUTION: {solution}
 
 📋 TECHNICAL DETAILS: {error_details[:200]}
+
+Traceback:
+{tb_str}
 
 💡 ADDITIONAL TROUBLESHOOTING:
 • Verify WOLFRAM_API_KEY environment variable is set correctly
