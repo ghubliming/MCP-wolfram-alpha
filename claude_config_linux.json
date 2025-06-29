@@ -7,7 +7,7 @@
         "mcp_wolfram_alpha"
       ],
       "env": {
-        "WOLFRAM_API_KEY": "T6Y3KQ-46TWL75XTR"
+        "WOLFRAM_API_KEY": ""
       },
       "cwd": "/home/liu/Documents/MCP-wolfram-alpha"
     }
