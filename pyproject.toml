@@ -3,7 +3,7 @@ name = "mcp-wolfram-alpha"
 version = "0.2.1"
 description = "A MCP server to connect to wolfram alpha API."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = [
  "httpx>=0.28.1",
  "mcp>=1.2.0",
