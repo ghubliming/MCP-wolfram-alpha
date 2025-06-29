@@ -163,7 +163,7 @@ async def handle_call_tool(
     
     try:
         # Query Wolfram Alpha
-        response = await client.aquery(query)
+        response = await asyncio.to_thread(client.query, query)
         
         if not response.pods:
             return [types.TextContent(
